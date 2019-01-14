@@ -1,7 +1,9 @@
 // Created by Viacheslav (Slava) Skryabin 04/01/2018
 package support;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -13,13 +15,43 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestContext {
 
     private static WebDriver driver;
+
+    public static WebDriverWait getWait() {
+        return new WebDriverWait(getDriver(), 10);
+    }
+
+    public static HashMap<String, String> getSender() throws Exception {
+        String path = System.getProperty("user.dir") + "/src/test/resources/config/sender.yml";
+        File sender = new File(path);
+        InputStream stream = new FileInputStream(sender);
+        Yaml yaml = new Yaml();
+        return yaml.load(stream);
+    }
+
+    public static HashMap<String, String> getReceiver() throws Exception {
+        String path = System.getProperty("user.dir") + "/src/test/resources/config/receiver.yml";
+        File sender = new File(path);
+        InputStream stream = new FileInputStream(sender);
+        Yaml yaml = new Yaml();
+        return yaml.load(stream);
+    }
+
+    public static void clickWithJS(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor)getDriver();
+        executor.executeScript("arguments[0].click();", element);
+    }
 
     public static void initialize() {
         setDriver("chrome");
