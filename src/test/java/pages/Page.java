@@ -4,6 +4,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import static support.TestContext.getDriver;
 
+
 public class Page {
 
     private String url;
@@ -24,6 +25,7 @@ public class Page {
     public void open () {
         getDriver().get(url);
     }
+
 
 }
 

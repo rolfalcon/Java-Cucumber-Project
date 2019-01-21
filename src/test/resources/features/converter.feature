@@ -20,5 +20,3 @@ Feature: Converter functions
       | Weight       |  Pound      | Kilogram  | 170        | 77             |
       | Length       |  Mile       | Kilometer | 50         | 80.4           |
 
-  Scenario: Something
-    Given I need to

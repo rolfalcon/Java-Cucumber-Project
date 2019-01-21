@@ -31,10 +31,6 @@ public class converter {
 //        getDriver().findElement(By.xpath("//a[contains(@href,'" + tab + "')]")).click();
 
 
-
-
-
-
     }
 
     @And("^I set \"([^\"]*)\" to \"([^\"]*)\"$")
@@ -48,11 +44,6 @@ public class converter {
         WebElement toElement = getDriver().findElement(By.xpath("//*[@id='calTo']"));
         Select selectTo = new Select(toElement);
         selectTo.selectByVisibleText(to);
-
-
-
-
-
 
 
     }
