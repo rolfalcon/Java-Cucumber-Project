@@ -4,7 +4,6 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -12,6 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.Page;
 
 import java.util.List;
 
@@ -109,7 +109,7 @@ public class UspsStepDefs {
         By xpath = By.xpath("//input[contains(@id, 'Priority Mail')]/../label");
         WebElement priorityMail = getDriver().findElement(xpath);
 
-        clickWithJS(priorityMail);
+        Page.clickWithJS(priorityMail);
 
     }
 
@@ -130,7 +130,7 @@ public class UspsStepDefs {
         By xpath = By.xpath(String.format("//input[contains(@id, '%s')]/../label", select));
         WebElement priorityMail = getDriver().findElement(xpath);
 
-        clickWithJS(priorityMail);
+        Page.clickWithJS(priorityMail);
     }
 
     @And("^I unselect \"([^\"]*)\" checkbox$")
@@ -138,7 +138,7 @@ public class UspsStepDefs {
         // Write code here that turns the phrase above into concrete actions
         By xpath = By.xpath(String.format("//input[contains(@id, '%s')]/../label", select));
         WebElement unselectBox = getDriver().findElement(xpath);
-        clickWithJS(unselectBox);
+        Page.clickWithJS(unselectBox);
 //        if (unselectBox.isSelected()) {
 //            clickWithJS(unselectBox);
 //        }
@@ -156,7 +156,7 @@ public class UspsStepDefs {
         By xpathSelect = By.xpath(String.format("//input[contains(@id, '%s')]/../label", select));
         WebElement priorityMail = getDriver().findElement(xpathSelect);
 
-        clickWithJS(priorityMail);
+        Page.clickWithJS(priorityMail);
 
 
 

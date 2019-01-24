@@ -32,25 +32,25 @@ public class TestContext {
         return new WebDriverWait(getDriver(), 10);
     }
 
-    public static HashMap<String, String> getSender() throws Exception {
-        String path = System.getProperty("user.dir") + "/src/test/resources/config/sender.yml";
+    public static HashMap<String, String> getData (String file) throws Exception {
+        String path = System.getProperty("user.dir") + "/src/test/resources/config/" + file + ".yml";
         File sender = new File(path);
         InputStream stream = new FileInputStream(sender);
         Yaml yaml = new Yaml();
         return yaml.load(stream);
+
+    }
+
+    public static HashMap<String, String> getSample() throws Exception {
+        return getData("sample");
+    }
+
+    public static HashMap<String, String> getSender() throws Exception {
+        return getData("sender");
     }
 
     public static HashMap<String, String> getReceiver() throws Exception {
-        String path = System.getProperty("user.dir") + "/src/test/resources/config/receiver.yml";
-        File sender = new File(path);
-        InputStream stream = new FileInputStream(sender);
-        Yaml yaml = new Yaml();
-        return yaml.load(stream);
-    }
-
-    public static void clickWithJS(WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor)getDriver();
-        executor.executeScript("arguments[0].click();", element);
+        return getData("receiver");
     }
 
     public static void initialize() {

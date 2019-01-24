@@ -6,6 +6,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pages.SampleForm;
 
+import java.util.HashMap;
+
+import static support.TestContext.getSample;
+
 public class FormStepDevs {
     @Given("^I open sample page$")
     public void iOpenSamplePage() {
@@ -14,13 +18,16 @@ public class FormStepDevs {
 
 
     @When("^I fill out sample fields$")
-    public void iFillOutSampleFields() {
+    public void iFillOutSampleFields() throws Exception{
         SampleForm form = new SampleForm();
 
-        form.enterUserName("stupidUser");
-        form.fillEmail("stupid@stupid.com");
-        form.enterName("Rolando", "Olimpo", "F");
-        form.enterPassword("dumber", "dumber");
+        HashMap<String, String> sample = getSample();
+
+
+        form.enterUserName(sample.get("username"));
+        form.fillEmail(sample.get("email"));
+        form.enterName(sample.get("firstname"), sample.get("lastname"), "F");
+        form.enterPassword(sample.get("password"), sample.get("password"));
         form.clickPrivacyCheckbox();
     }
 

@@ -1,21 +1,18 @@
 package definitions;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.Page;
 import support.TestContext;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -69,7 +66,7 @@ public class UpsStepDefs {
         String oldUrl = getDriver().getCurrentUrl();
 //        WebElement nextButton = getDriver().findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']"));
         WebElement nextButton = getDriver().findElement(By.xpath("//*[contains(@id, 'nbsBackForwardNavigationContinueButton') or contains(@id, 'nbsBackForwardNavigationReviewPrimaryButton')]"));
-        TestContext.clickWithJS(nextButton);
+        Page.clickWithJS(nextButton);
         getWait().until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
     }
 
@@ -97,7 +94,7 @@ public class UpsStepDefs {
         Actions actions = new Actions(getDriver());
 
         actions.moveToElement(cancelButton).perform();
-        clickWithJS(cancelButton);
+        Page.clickWithJS(cancelButton);
 
         By yesXpathButton = By.xpath("//button[@id='nbsCancelShipmentWarningYes']");
         getWait().until(ExpectedConditions.visibilityOfElementLocated(yesXpathButton));
@@ -195,7 +192,7 @@ public class UpsStepDefs {
         if (getDriver().findElement(By.xpath("//*[@optionname='nbsSaturdayDeliveryOptionBaseOption']//*[contains(@class, 'ups-lever_switch_no')]")).isDisplayed() ) {
             WebElement sat = getDriver().findElement(By.xpath("//*[@optionname='nbsSaturdayDeliveryOptionBaseOption']//*[@class='ups-lever_switch_bg']"));
 
-            clickWithJS(sat);
+            Page.clickWithJS(sat);
 //            JavascriptExecutor executor = (JavascriptExecutor)getDriver();
 //            executor.executeScript("arguments[0].click();", sat);
         }
