@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getWait;
+import static support.TestContext.getDriver;
 
 
 public class UspsForm extends Page{
@@ -48,6 +50,19 @@ public class UspsForm extends Page{
     @FindBy(xpath="//li[@class='tool-stamps']/a[@role='menuitem'][contains(@href, 'stamps')]")
     private WebElement stamps;
 
+    @FindBy(xpath="//a[@class='nav-first-element menuitem']")
+    private WebElement quickTools;
+
+    @FindBy(xpath = "//img[contains(@src, 'calculate')]")
+    private WebElement calculatePrice;
+
+    @FindBy (xpath = "//input[@id='global-header--search-track-store']")
+    private WebElement searchInPostal;
+
+    @FindBy (xpath = "//div[@class='no-results-found']")
+    private WebElement noResultsFields;
+
+
     public UspsForm() {
         setUrl("https://www.usps.com/");
     }
@@ -78,10 +93,28 @@ public class UspsForm extends Page{
 
     }
 
-    public void selectCheckBox (String value) {
+    public void selectPriceBox() {
+        Actions actions = new Actions(getDriver());
 
+        actions.moveToElement(quickTools).perform();
+        actions.click(quickTools).perform();
+        actions.click(calculatePrice).perform();
+        new UspsCalculatePage().waitPage();
+    }
 
+    public void selectPostalStore (){
+        Actions actions = new Actions(getDriver());
 
+        actions.moveToElement(postalStore).perform();
+
+    }
+
+    public void enterPostalSearch(String value)  {
+        searchInPostal.sendKeys(value);
+    }
+
+    public void verifyNoResults () {
+        assertThat(noResultsFields.isDisplayed()).isTrue();
     }
 
 }

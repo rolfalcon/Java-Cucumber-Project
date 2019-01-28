@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import pages.UspsCalculatePage;
 import pages.UspsForm;
 
 public class UspsFormStepdefs {
@@ -45,5 +46,51 @@ public class UspsFormStepdefs {
     public void iVerifyStampForm(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
+    }
+
+    @When("^I go to Calculate Price page object$")
+    public void iGoToCalculatePricePageObject() {
+        new UspsForm().selectPriceBox();
+        
+    }
+
+    @And("^I select \"([^\"]*)\" with \"([^\"]*)\" shape$")
+    public void iSelectWithShape(String country, String shape) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        UspsCalculatePage page = new UspsCalculatePage();
+        page.setSelectCountry(country);
+        page.setPostCardButton();
+
+    }
+
+    @And("^Idefine \"([^\"]*)\" quantity page object$")
+    public void idefineQuantityPageObject(String value) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        new UspsCalculatePage().setSelectPostCardQty(value);
+     }
+
+    @Then("^I calculate the price and validate cost is \"([^\"]*)\" page$")
+    public void iCalculateThePriceAndValidateCostIsPage(String price) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        UspsCalculatePage page = new UspsCalculatePage();
+        page.clickCalculate();
+        page.verifyPrice(price);
+
+    }
+
+    @When("^I go to Postal Store tab$")
+    public void iGoToPostalStoreTab() {
+        new UspsForm().selectPostalStore();
+        
+    }
+
+    @And("^I enter \"([^\"]*)\" into store search page object$")
+    public void iEnterIntoStoreSearchPageObject(String value) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        new UspsForm().enterPostalSearch(value);
+    }
+
+    @Then("^I search and validate no products found page object$")
+    public void iSearchAndValidateNoProductsFoundPageObject() {
     }
 }
